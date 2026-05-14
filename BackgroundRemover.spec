@@ -24,10 +24,10 @@ a = Analysis(
 )
 
 from PyInstaller.utils.hooks import collect_all
-datas, binaries, hiddenimports = collect_all('tkinterdnd2')
-a.datas += datas
-a.binaries += binaries
-a.hiddenimports += hiddenimports
+result = collect_all('tkinterdnd2')
+a.datas += result[0]
+a.binaries += result[1]
+a.hiddenimports += result[2]
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
