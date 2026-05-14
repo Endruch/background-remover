@@ -23,11 +23,18 @@ a = Analysis(
     noarchive=False,
 )
 
-from PyInstaller.utils.hooks import collect_all
-result = collect_all('tkinterdnd2')
-a.datas += result[0]
-a.binaries += result[1]
-a.hiddenimports += result[2]
+try:
+    from PyInstaller.utils.hooks import collect_all
+    result = collect_all('tkinterdnd2')
+    if len(result) == 3:
+        a.datas += result[0]
+        a.binaries += result[1]
+        a.hiddenimports += result[2]
+    elif len(result) == 2:
+        a.datas += result[0]
+        a.binaries += result[1]
+except:
+    pass
 
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
