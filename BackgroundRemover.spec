@@ -1,5 +1,4 @@
 # -*- mode: python ; coding: utf-8 -*-
-# Spec файл для PyInstaller - создание standalone EXE файла
 
 block_cipher = None
 
@@ -24,7 +23,6 @@ a = Analysis(
     noarchive=False,
 )
 
-# Собираем все файлы tkinterdnd2
 from PyInstaller.utils.hooks import collect_all
 datas, binaries, hiddenimports = collect_all('tkinterdnd2')
 a.datas += datas
@@ -47,11 +45,11 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,  # Не показывать консоль
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='app_icon.ico',  # Иконка приложения
+    icon='app_icon.ico',
 )
