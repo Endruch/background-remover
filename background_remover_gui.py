@@ -110,7 +110,10 @@ class BackgroundRemoverApp:
             new_data = []
 
             for gray_value in gray_data:
-                alpha = 255 - gray_value
+                if gray_value >= 248:
+                    alpha = 0
+                else:
+                    alpha = 255 - gray_value
                 new_data.append((0, 0, 0, alpha))
 
             result.putdata(new_data)
