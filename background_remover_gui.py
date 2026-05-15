@@ -17,7 +17,7 @@ class BackgroundRemoverApp:
 
         self.current_image_path = None
         self.preview_image = None
-        self.threshold_value = 240
+        self.threshold_value = 255
 
         self._create_widgets()
 
@@ -53,21 +53,21 @@ class BackgroundRemoverApp:
 
         self.slider_label = tk.Label(
             self.slider_frame,
-            text="Прозрачность белого: 94%",
+            text="Прозрачность белого: 0%",
             font=("Arial", 10)
         )
         self.slider_label.pack()
 
         self.threshold_slider = tk.Scale(
             self.slider_frame,
-            from_=1,
+            from_=0,
             to=100,
             orient=tk.HORIZONTAL,
             length=300,
             command=self._update_threshold,
             showvalue=False
         )
-        self.threshold_slider.set(94)
+        self.threshold_slider.set(0)
         self.threshold_slider.pack()
 
         self.process_button = tk.Button(
@@ -86,7 +86,7 @@ class BackgroundRemoverApp:
 
     def _update_threshold(self, value):
         percentage = int(value)
-        self.threshold_value = int(255 * (1 - percentage / 100))
+        self.threshold_value = int(255 - (255 * percentage / 100))
         self.slider_label.config(text=f"Прозрачность белого: {percentage}%")
 
     def _on_drop(self, event):
