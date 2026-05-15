@@ -29,7 +29,7 @@ def remove_white_background(input_path, output_path=None, threshold=240):
         output_path = f"{base_name}_transparent.png"
 
     result.save(output_path, "PNG", optimize=True)
-    print(f"Сохранено: {output_path}")
+    print(f"Saved: {output_path}")
 
 
 def process_directory(directory, threshold=240):
@@ -38,20 +38,20 @@ def process_directory(directory, threshold=240):
     for filename in os.listdir(directory):
         if filename.endswith(jpeg_extensions):
             input_path = os.path.join(directory, filename)
-            print(f"Обработка: {input_path}")
+            print(f"Processing: {input_path}")
             try:
                 remove_white_background(input_path, threshold=threshold)
             except Exception as e:
-                print(f"Ошибка при обработке {input_path}: {e}")
+                print(f"Error processing {input_path}: {e}")
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Использование:")
-        print("  python remove_white_bg.py <файл.jpg>")
-        print("  python remove_white_bg.py <файл.jpg> <выходной.gif>")
-        print("  python remove_white_bg.py <директория>")
-        print("  python remove_white_bg.py <файл.jpg> --threshold 220")
+        print("Usage:")
+        print("  python remove_white_bg.py <file.jpg>")
+        print("  python remove_white_bg.py <file.jpg> <output.gif>")
+        print("  python remove_white_bg.py <directory>")
+        print("  python remove_white_bg.py <file.jpg> --threshold 220")
         sys.exit(1)
 
     path = sys.argv[1]
@@ -68,5 +68,5 @@ if __name__ == "__main__":
     elif os.path.isdir(path):
         process_directory(path, threshold)
     else:
-        print(f"Ошибка: {path} не является файлом или директорией")
+        print(f"Error: {path} is not a file or directory")
         sys.exit(1)

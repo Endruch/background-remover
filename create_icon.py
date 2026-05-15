@@ -35,36 +35,36 @@ def convert_to_ico(input_path, output_path="app_icon.ico"):
             append_images=icon_images[:-1]
         )
 
-        print(f"✓ Иконка успешно создана: {output_path}")
-        print(f"  Размеры: {', '.join([f'{s[0]}x{s[1]}' for s in icon_sizes])}")
+        print(f"✓ Icon successfully created: {output_path}")
+        print(f"  Sizes: {', '.join([f'{s[0]}x{s[1]}' for s in icon_sizes])}")
 
         file_size = os.path.getsize(output_path) / 1024
-        print(f"  Размер файла: {file_size:.1f} KB")
+        print(f"  File size: {file_size:.1f} KB")
 
         return True
 
     except Exception as e:
-        print(f"✗ Ошибка при создании иконки: {e}")
+        print(f"✗ Error creating icon: {e}")
         return False
 
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Использование: python create_icon.py <файл_изображения>")
-        print("Пример: python create_icon.py Mad6d.gif")
-        print("\nСоздаст файл app_icon.ico для использования в сборке")
+        print("Usage: python create_icon.py <image_file>")
+        print("Example: python create_icon.py Mad6d.gif")
+        print("\nWill create app_icon.ico file for use in build")
         sys.exit(1)
 
     input_file = sys.argv[1]
 
     if not os.path.exists(input_file):
-        print(f"✗ Файл не найден: {input_file}")
+        print(f"✗ File not found: {input_file}")
         sys.exit(1)
 
     output_file = "app_icon.ico"
     success = convert_to_ico(input_file, output_file)
 
     if success:
-        print(f"\n✓ Готово! Используйте файл '{output_file}' при сборке EXE")
+        print(f"\n✓ Done! Use '{output_file}' file when building EXE")
     else:
         sys.exit(1)

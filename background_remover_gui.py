@@ -38,7 +38,7 @@ class BackgroundRemoverApp:
 
         self.hint_label = tk.Label(
             self.drop_frame,
-            text="Перетащите сюда\nизображение",
+            text="Drag and drop\nan image here",
             font=("Arial", 12),
             bg="#f0f0f0",
             fg="#888888"
@@ -53,7 +53,7 @@ class BackgroundRemoverApp:
 
         self.slider_label = tk.Label(
             self.slider_frame,
-            text="Прозрачность белого: 0%",
+            text="White transparency: 0%",
             font=("Arial", 10)
         )
         self.slider_label.pack()
@@ -72,7 +72,7 @@ class BackgroundRemoverApp:
 
         self.process_button = tk.Button(
             self.root,
-            text="Убрать фон",
+            text="Remove Background",
             font=("Arial", 12, "bold"),
             command=self._process_image,
             width=25,
@@ -87,7 +87,7 @@ class BackgroundRemoverApp:
     def _update_threshold(self, value):
         percentage = int(value)
         self.threshold_value = int(255 - (255 * percentage / 100))
-        self.slider_label.config(text=f"Прозрачность белого: {percentage}%")
+        self.slider_label.config(text=f"White transparency: {percentage}%")
 
     def _on_drop(self, event):
         file_path = event.data
@@ -100,7 +100,7 @@ class BackgroundRemoverApp:
     def _load_image(self, file_path):
         try:
             if not os.path.exists(file_path):
-                messagebox.showerror("Ошибка", f"Файл не найден:\n{file_path}")
+                messagebox.showerror("Error", f"File not found:\n{file_path}")
                 return
 
             img = Image.open(file_path)
@@ -118,15 +118,15 @@ class BackgroundRemoverApp:
             self.process_button.config(state=tk.NORMAL)
 
         except Exception as e:
-            messagebox.showerror("Ошибка", f"Не удалось загрузить изображение:\n{str(e)}")
+            messagebox.showerror("Error", f"Failed to load image:\n{str(e)}")
 
     def _process_image(self):
         if not self.current_image_path:
-            messagebox.showwarning("Предупреждение", "Сначала выберите изображение")
+            messagebox.showwarning("Warning", "Please select an image first")
             return
 
         try:
-            self.process_button.config(state=tk.DISABLED, text="Обработка...")
+            self.process_button.config(state=tk.DISABLED, text="Processing...")
             self.root.update()
 
             img = Image.open(self.current_image_path)
@@ -151,16 +151,16 @@ class BackgroundRemoverApp:
 
             result.save(output_path, "PNG", optimize=True)
 
-            self.process_button.config(state=tk.NORMAL, text="Убрать фон")
+            self.process_button.config(state=tk.NORMAL, text="Remove Background")
 
             messagebox.showinfo(
-                "Готово",
-                f"Сохранено: {os.path.basename(output_path)}"
+                "Done",
+                f"Saved: {os.path.basename(output_path)}"
             )
 
         except Exception as e:
-            self.process_button.config(state=tk.NORMAL, text="Убрать фон")
-            messagebox.showerror("Ошибка", f"Не удалось обработать изображение:\n{str(e)}")
+            self.process_button.config(state=tk.NORMAL, text="Remove Background")
+            messagebox.showerror("Error", f"Failed to process image:\n{str(e)}")
 
 
 def main():
@@ -169,10 +169,10 @@ def main():
         app = BackgroundRemoverApp(root)
         root.mainloop()
     except Exception as e:
-        print(f"Ошибка запуска: {e}")
-        print("\nВозможно, не установлен модуль tkinterdnd2")
-        print("Установите: pip install tkinterdnd2")
-        input("\nНажмите Enter для выхода...")
+        print(f"Startup error: {e}")
+        print("\ntkinterdnd2 module may not be installed")
+        print("Install it: pip install tkinterdnd2")
+        input("\nPress Enter to exit...")
         sys.exit(1)
 
 
