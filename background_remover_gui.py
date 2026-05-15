@@ -11,7 +11,7 @@ import sys
 class BackgroundRemoverApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("")
+        self.root.title("Background Remover")
         self.root.geometry("400x500")
         self.root.resizable(False, False)
 
