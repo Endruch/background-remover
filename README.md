@@ -41,7 +41,7 @@ The application features a simple interface:
 1. Copy all project files to Windows PC (including `Mad6d.gif`)
 2. Run `build_windows_advanced.bat` (double-click)
 3. Wait 2-5 minutes
-4. Get your EXE from `dist\BackgroundRemover.exe`
+4. Get your EXE from `dist\Background Remover.exe`
 
 ### Manual Build
 
@@ -54,14 +54,14 @@ pip install pyinstaller
 python create_icon.py Mad6d.gif
 
 # Build standalone EXE
-pyinstaller --clean BackgroundRemover.spec
+pyinstaller --clean Background Remover.spec
 ```
 
-Result: `dist\BackgroundRemover.exe` (~20-50 MB)
+Result: `dist\Background Remover.exe` (~20-50 MB)
 
 ## Using the Application
 
-1. Launch `BackgroundRemover.exe`
+1. Launch `Background Remover.exe`
 2. Drag and drop an image into the window
 3. Click "Remove Background"
 4. Find your transparent PNG in the same folder with `_transparent.png` suffix
@@ -86,7 +86,7 @@ This creates `app_icon.ico` with multiple sizes (16x16, 32x32, 48x48, 64x64, 128
 
 **Core Application:**
 - `background_remover_gui.py` - Main GUI application
-- `BackgroundRemover.spec` - PyInstaller configuration
+- `Background Remover.spec` - PyInstaller configuration
 
 **Icon Resources:**
 - `Mad6d.gif` - Source icon image (166 KB)
