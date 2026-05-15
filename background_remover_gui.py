@@ -12,11 +12,12 @@ class BackgroundRemoverApp:
     def __init__(self, root):
         self.root = root
         self.root.title("")
-        self.root.geometry("400x400")
+        self.root.geometry("400x500")
         self.root.resizable(False, False)
 
         self.current_image_path = None
         self.preview_image = None
+        self.threshold_value = 240
 
         self._create_widgets()
 
@@ -47,6 +48,28 @@ class BackgroundRemoverApp:
         self.preview_label = tk.Label(self.drop_frame, bg="#f0f0f0")
         self.preview_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
+        self.slider_frame = tk.Frame(self.root)
+        self.slider_frame.pack(pady=10)
+
+        self.slider_label = tk.Label(
+            self.slider_frame,
+            text="Прозрачность белого: 94%",
+            font=("Arial", 10)
+        )
+        self.slider_label.pack()
+
+        self.threshold_slider = tk.Scale(
+            self.slider_frame,
+            from_=1,
+            to=100,
+            orient=tk.HORIZONTAL,
+            length=300,
+            command=self._update_threshold,
+            showvalue=False
+        )
+        self.threshold_slider.set(94)
+        self.threshold_slider.pack()
+
         self.process_button = tk.Button(
             self.root,
             text="Убрать фон",
@@ -60,6 +83,11 @@ class BackgroundRemoverApp:
             state=tk.DISABLED
         )
         self.process_button.pack(pady=15)
+
+    def _update_threshold(self, value):
+        percentage = int(value)
+        self.threshold_value = int(255 * (1 - percentage / 100))
+        self.slider_label.config(text=f"Прозрачность белого: {percentage}%")
 
     def _on_drop(self, event):
         file_path = event.data
@@ -110,7 +138,7 @@ class BackgroundRemoverApp:
             new_data = []
 
             for gray_value in gray_data:
-                if gray_value >= 240:
+                if gray_value >= self.threshold_value:
                     alpha = 0
                 else:
                     alpha = 255 - gray_value
