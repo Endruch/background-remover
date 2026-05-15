@@ -21,13 +21,8 @@ if exist "Mad6d.gif" (
 
 echo.
 echo [3/4] Building EXE (this may take 2-5 minutes)...
-if exist "app_icon.ico" (
-    echo Using icon: app_icon.ico
-    pyinstaller --onefile --windowed --name="Background Remover" --icon=app_icon.ico --clean --hidden-import=PIL --hidden-import=PIL._imagingtk --hidden-import=PIL._tkinter_finder --hidden-import=tkinterdnd2 --collect-all=tkinterdnd2 background_remover_gui.py
-) else (
-    echo Icon not found, building without icon
-    pyinstaller --onefile --windowed --name="Background Remover" --clean --hidden-import=PIL --hidden-import=PIL._imagingtk --hidden-import=PIL._tkinter_finder --hidden-import=tkinterdnd2 --collect-all=tkinterdnd2 background_remover_gui.py
-)
+echo Using spec file with version info and icon...
+pyinstaller --clean "BackgroundRemover.spec"
 
 if errorlevel 1 (
     echo ERROR: Build failed!

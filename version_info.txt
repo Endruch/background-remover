@@ -23,7 +23,7 @@ VSVersionInfo(
         StringStruct(u'FileDescription', u'Remove white backgrounds from images'),
         StringStruct(u'FileVersion', u'1.0.0.0'),
         StringStruct(u'InternalName', u'Background Remover'),
-        StringStruct(u'LegalCopyright', u'Free to use and modify'),
+        StringStruct(u'LegalCopyright', u'Free to use'),
         StringStruct(u'OriginalFilename', u'Background Remover.exe'),
         StringStruct(u'ProductName', u'Background Remover'),
         StringStruct(u'ProductVersion', u'1.0.0.0'),
