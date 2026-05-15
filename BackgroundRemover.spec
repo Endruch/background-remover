@@ -32,7 +32,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='BackgroundRemover',
+    name='Background Remover',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
