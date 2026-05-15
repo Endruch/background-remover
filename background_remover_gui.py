@@ -110,7 +110,7 @@ class BackgroundRemoverApp:
             new_data = []
 
             for gray_value in gray_data:
-                if gray_value >= 248:
+                if gray_value >= 240:
                     alpha = 0
                 else:
                     alpha = 255 - gray_value
