@@ -16,7 +16,7 @@ def remove_white_background(input_path, output_path=None, threshold=240):
     new_data = []
 
     for gray_value in gray_data:
-        if gray_value >= 248:
+        if gray_value >= 240:
             alpha = 0
         else:
             alpha = 255 - gray_value
