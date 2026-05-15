@@ -1,46 +1,56 @@
 @echo off
-REM Расширенная сборка с использованием .spec файла
-REM Гарантирует включение всех зависимостей
-
 echo ========================================
-echo Сборка BackgroundRemover (Advanced)
+echo Build BackgroundRemover
 echo ========================================
 echo.
 
-echo [1/4] Установка зависимостей...
+echo [1/4] Installing dependencies...
 pip install -r requirements.txt
 pip install pyinstaller
 
 echo.
-echo [2/4] Создание иконки из Mad6d.gif...
+echo [2/4] Creating icon from Mad6d.gif...
 if exist "Mad6d.gif" (
     python create_icon.py Mad6d.gif
     if errorlevel 1 (
-        echo Предупреждение: Не удалось создать иконку, продолжаем без неё
+        echo Warning: Could not create icon, continuing without it
     )
 ) else (
-    echo Предупреждение: Mad6d.gif не найден, продолжаем без иконки
+    echo Warning: Mad6d.gif not found, continuing without icon
 )
 
 echo.
-echo [3/4] Сборка через .spec файл...
-pyinstaller --clean BackgroundRemover.spec
+echo [3/4] Building EXE (this may take 2-5 minutes)...
+if exist "app_icon.ico" (
+    echo Using icon: app_icon.ico
+    pyinstaller --onefile --windowed --name=BackgroundRemover --icon=app_icon.ico --clean --hidden-import=PIL --hidden-import=PIL._imagingtk --hidden-import=PIL._tkinter_finder --hidden-import=tkinterdnd2 --collect-all=tkinterdnd2 background_remover_gui.py
+) else (
+    echo Icon not found, building without icon
+    pyinstaller --onefile --windowed --name=BackgroundRemover --clean --hidden-import=PIL --hidden-import=PIL._imagingtk --hidden-import=PIL._tkinter_finder --hidden-import=tkinterdnd2 --collect-all=tkinterdnd2 background_remover_gui.py
+)
+
+if errorlevel 1 (
+    echo ERROR: Build failed!
+    echo Check the logs above
+    pause
+    exit /b 1
+)
 
 echo.
-echo [4/4] Проверка результата...
+echo [4/4] Checking result...
 if exist "dist\BackgroundRemover.exe" (
     echo.
     echo ========================================
-    echo УСПЕХ! EXE файл создан:
+    echo SUCCESS! EXE file created:
     echo dist\BackgroundRemover.exe
     echo.
-    echo Размер файла:
+    echo File size:
     dir "dist\BackgroundRemover.exe" | findstr BackgroundRemover
     echo ========================================
 ) else (
     echo.
-    echo ОШИБКА: EXE файл не создан!
-    echo Проверьте логи выше
+    echo ERROR: EXE file not created!
+    echo Check logs above
 )
 
 echo.
